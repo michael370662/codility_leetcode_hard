@@ -7,14 +7,6 @@
 #include <unordered_set>
 using namespace std;
 
-
-int recursion(vector<int>&A, const int K, int* h)
-{
-    if(K > 1)
-        recursion(A, K - 1, h);
-    
-}
-
 int solution(vector<int> &A, int K)
 {
     if(A.size() <= K)
