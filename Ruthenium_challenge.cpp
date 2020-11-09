@@ -31,8 +31,7 @@ int solution(vector<int> &A, int K)
     int h[B.size()];            // array that keep track of the occurence of an int.
     int left[B.size()];	        // left represents current window's starting index
     int count[B.size()];        // stores number of # in current window
-	int window[B.size()];       // stores maximum number of continuous #'s found
-    int leftIndex[B.size()];    // store left index of maximum window found so far
+    int window[B.size()];       // stores maximum number of continuous #'s found
     
     memset (h, 0, sizeof(h));
     memset (left, 0, sizeof(left));
@@ -69,10 +68,7 @@ int solution(vector<int> &A, int K)
     		// k # and we update max window size and leftmost index
     		// of the window
     		if (right - left[i] + 1 > window[i])
-    		{
     			window[i] = right - left[i] + 1;
-    			leftIndex[i] = left[i];
-    		}
     	}
     }
     int ret = *max_element(window,window + B.size());
