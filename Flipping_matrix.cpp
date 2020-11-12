@@ -37,7 +37,10 @@ int solution(vector<vector<int>> &A)
     int size = pow(2,n);	 
     
     unsigned int count[size];
-    memset(count,0,sizeof(count));
+    fill(count, count + size, 0);
+    
+    if (A.size() == 1)
+        return 1;
     
     for(int i = 0; i < A.size(); i++)
     {
