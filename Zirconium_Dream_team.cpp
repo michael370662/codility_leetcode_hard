@@ -14,9 +14,9 @@ int solution(vector<int> &A, vector<int> &B, int K)
         return 0;
     else if (A.size() == 1)
         return A.at(0) + B.at(0);   //2 Corner cases when the size of vector doesn't require picking.
-	if(K == 0)
+	if(K == A.size())
 	    return accumulate(A.begin(),A.end(),0);
-	else if(K == A.size())
+	else if(K == 0)
 	    return accumulate(B.begin(),B.end(),0);
 	int array[K];   //Store unique index
 	fill(array, array + K, -1);
