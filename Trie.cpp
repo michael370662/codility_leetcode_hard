@@ -132,6 +132,7 @@ class Trie {
             temp = mIt->second;
             const char c = mIt->first;
             root->map[c] = deleteall(temp);
+            root->map.erase(c);
         }
     }
     //Destructor
