@@ -1,0 +1,32 @@
+//House Robber leetcode without optimizization using only recursion
+#include <bits/stdc++.h> 
+using namespace std;
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        if (nums.empty())
+            return 0;
+        if(nums.size() < 2)
+            return nums.front();
+        if(nums.size() == 2)
+            return max(nums.front(),nums.back());
+        int firstPath = nums.front();
+        nums.erase(nums.begin());
+        int secondPath = nums.front();
+        nums.erase(nums.begin());
+        vector<int> temp = nums;
+        firstPath += rob(temp);
+        nums.erase(nums.begin());
+        temp = nums;
+        secondPath += rob(temp);
+        return max(firstPath,secondPath);
+    }
+};
+int main() {
+    vector<int> nums {2,7,9,3,1};
+    vector<int> numsOne{1,2,3,1};
+    Solution solution;
+    cout<<solution.rob(nums)<<endl;
+    cout<<solution.rob(numsOne)<<endl;
+    return 0;
+}
