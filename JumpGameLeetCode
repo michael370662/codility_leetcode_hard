@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>>
+using namespace std;
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        if((nums.size() == 1) || nums.empty())
+            return true;
+        if(nums.front() == 0)
+            return false;
+        int maxIndex = nums.front();
+        for(int i = 0; i < maxIndex; i++)
+        {
+            nums.erase(nums.begin());
+            vector<int> temp = nums;
+            if(canJump(temp))
+                return true;
+        }
+        return false;
+    }
+};
+int main(){
+    Solution solution;
+    vector<int> nums{2,3,1,1,4};
+    vector<int>numsOne{3,2,1,0,4};
+    cout<<solution.canJump(nums)<<endl;
+    cout<<solution.canJump(numsOne)<<endl;
+    return 0;
+}
