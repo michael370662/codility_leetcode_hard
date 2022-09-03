@@ -1,0 +1,52 @@
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <vector>
+#include <cstring>
+
+using namespace std;
+class Solution {
+    int dp[70][70][70];
+    vector<vector<int>> myGrid;
+    int N;
+    int M;
+    int dfs(int r,int c1,int c2)
+    {
+        if((r>M)||(c1>N)||(c2>N)||(r<0)||(c1<0)||(c2<0)) return INT_MIN;
+        if(dp[r][c1][c2] != -1) return dp[r][c1][c2];
+        
+        int current = (c1 != c2)? (myGrid[r][c1] + myGrid[r][c2]) : myGrid[r][c1];
+        if(r == M) return current;
+        //9 sceanrios
+        int leafGrids = max(dfs(r+1,c1,c2),dfs(r+1,c1+1,c2));
+        leafGrids = max(leafGrids,dfs(r+1,c1,c2+1));
+        leafGrids = max(leafGrids,dfs(r+1,c1+1,c2+1));
+        leafGrids = max(leafGrids,dfs(r+1,c1-1,c2+1));
+        leafGrids = max(leafGrids,dfs(r+1,c1+1,c2-1));
+        leafGrids = max(leafGrids,dfs(r+1,c1-1,c2-1));
+        leafGrids = max(leafGrids,dfs(r+1,c1-1,c2));
+        leafGrids = max(leafGrids,dfs(r+1,c1,c2-1));
+        
+        current += leafGrids;
+        
+        dp[r][c1][c2] = current;
+        return current;
+    }
+    
+    public:
+    int cherryPickup(vector<vector<int>>& grid){
+        int n = grid[0].size();
+        N = n-1;
+        M = grid.size()-1;
+        memset(dp,-1,sizeof dp);
+        myGrid = grid;
+        return dfs(0,0,N);
+        
+    }
+};
+int main(){
+    vector<vector<int>> grid = {{1,0,0,0,0,0,1},{2,0,0,0,0,3,0},{2,0,9,0,0,0,0},{0,3,0,5,4,0,0},{1,0,2,3,0,0,6}};
+    Solution solution;
+    cout<<solution.cherryPickup(grid)<<endl;
+    return 0;
+}
