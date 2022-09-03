@@ -1,0 +1,42 @@
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+class Solution {
+    int dp[200][200];
+    vector<vector<int>> myDungeon;
+    int dfs(int r,int c,int N)
+    {
+        if((r>N)||(c>N)) return INT_MIN;
+        if(dp[r][c] != INT_MIN) return dp[r][c];
+        if(r == N && c == N) return myDungeon[r][c];
+        
+        int leafDungeon = max(dfs(r+1,c,N),dfs(r,c+1,N));
+        int current = myDungeon[r][c];
+        
+        if(!((current < 0) && (leafDungeon >0)))
+           current += leafDungeon;
+        
+        dp[r][c] = current;
+        return current;
+    }
+    
+    public:
+    int calculateMinimumHP(vector<vector<int>>& dungeon) {
+        int n = dungeon[0].size();
+        fill(&dp[0][0],&dp[0][0]+200*200,INT_MIN);
+        myDungeon = dungeon;
+        int posNeg = dfs(0,0,n-1);
+        if(posNeg >= 0) return 1;
+        else if (posNeg == INT_MIN) return -1;
+        else return (posNeg*(-1)+1);
+    }
+};
+int main(){
+    vector<vector<int>> dungeon = {{-2,-3,3},{-5,-10,1},{10,30,-5}};
+    Solution solution;
+    cout<<solution.calculateMinimumHP(dungeon)<<endl;
+    return 0;
+}
